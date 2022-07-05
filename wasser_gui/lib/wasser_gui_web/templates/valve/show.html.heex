@@ -1,0 +1,18 @@
+<h1>Show Valve</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @valve.name %>
+  </li>
+
+  <li>
+    <strong>Pin:</strong>
+    <%= @valve.pin %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.valve_path(@conn, :edit, @valve) %></span> |
+<span><%= link "Back", to: Routes.valve_path(@conn, :index) %></span>

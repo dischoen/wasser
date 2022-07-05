@@ -1,0 +1,5 @@
+*.beam
+.#*
+wasser_firmware/build_target.sh
+wasser_gui/priv/cert/
+wasser_firmware/setenv

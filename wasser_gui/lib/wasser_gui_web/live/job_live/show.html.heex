@@ -1,0 +1,36 @@
+<h1>Show Job</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.job_show_path(@socket, :show, @job)}>
+    <.live_component
+      module={WasserGuiWeb.JobLive.FormComponent}
+      id={@job.id}
+      title={@page_title}
+      action={@live_action}
+      job={@job}
+      return_to={Routes.job_show_path(@socket, :show, @job)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Valve:</strong>
+    <%= @job.valve %>
+  </li>
+
+  <li>
+    <strong>On:</strong>
+    <%= @job.on %>
+  </li>
+
+  <li>
+    <strong>Duration:</strong>
+    <%= @job.duration %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.job_show_path(@socket, :edit, @job), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.job_index_path(@socket, :index) %></span>

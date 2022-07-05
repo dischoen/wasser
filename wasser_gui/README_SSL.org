@@ -1,0 +1,9 @@
+* MIX commands
+
+#+begin_src sh
+mix phx.gen.cert
+mix phx.gen.secret
+mix phx.digest
+#+end_src
+
+To start a production runtime with SSL, use test_prod.sh

@@ -1,0 +1,36 @@
+<h1>Listing Valves</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.valve_index_path(@socket, :index)}>
+    <.live_component
+      module={WasserGuiWeb.ValveLive.FormComponent}
+      id={@valve.id || :new}
+      title={@page_title}
+      action={@live_action}
+      valve={@valve}
+      return_to={Routes.valve_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="valves">
+    <%= for valve <- @valves do %>
+      <tr id={"valve-#{valve}"}>
+
+        <td>
+          <span><%= valve %></span>
+          <span>on</span>
+          <span>off</span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

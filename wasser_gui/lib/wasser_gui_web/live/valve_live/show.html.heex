@@ -1,0 +1,21 @@
+<h1>Show Valve</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.valve_show_path(@socket, :show, @valve)}>
+    <.live_component
+      module={WasserGuiWeb.ValveLive.FormComponent}
+      id={@valve.id}
+      title={@page_title}
+      action={@live_action}
+      valve={@valve}
+      return_to={Routes.valve_show_path(@socket, :show, @valve)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.valve_show_path(@socket, :edit, @valve), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.valve_index_path(@socket, :index) %></span>

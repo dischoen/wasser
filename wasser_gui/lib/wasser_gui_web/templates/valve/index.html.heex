@@ -1,0 +1,28 @@
+<h1>Listing Assets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Pin</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for valve <- @assets do %>
+    <tr>
+      <td><%= valve.name %></td>
+      <td><%= valve.pin %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.valve_path(@conn, :show, valve) %></span>
+        <span><%= link "Edit", to: Routes.valve_path(@conn, :edit, valve) %></span>
+        <span><%= link "Delete", to: Routes.valve_path(@conn, :delete, valve), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Valve", to: Routes.valve_path(@conn, :new) %></span>

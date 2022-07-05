@@ -1,0 +1,28 @@
+<div>
+  <h2><%= @title %></h2>
+
+  <.form
+    let={f}
+    for={@changeset}
+    id="job-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save">
+  
+    <%= label      f, :valve %>
+    <%= select     f, :valve, [:westen, :osten, :rasen, :beete]%>
+    <%= error_tag  f, :valve %>
+  
+    <%= label f, :on %>
+    <%= time_select f, :on, second: [] %>
+    <%= error_tag   f, :on %>
+  
+    <%= label f, :duration %>
+    <%= time_select f, :duration, second: [] %>
+    <%= error_tag   f, :duration %>
+  
+    <div>
+      <%= submit "Save", phx_disable_with: "Saving..." %>
+    </div>
+  </.form>
+</div>
