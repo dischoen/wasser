@@ -17,14 +17,7 @@
          start_timers/3,
          clear_timers/2,
          set_timer_plus24/3,
-         read_timer/1,
-
-         start_receiver/0,
-         show_diff/1,
-         sa/0,
-
-         hms_to_seconds/1,
-         seconds_to_hms/1]).
+         read_timer/1]).
 
 
 -define(PRECISION, millisecond).
@@ -40,7 +33,6 @@ jobdef_to_monotime({H, M, S}, {DurH, DurM, DurS}) ->
     Tstart = NOW + TimerSec - NowSec,
     Tstop  = NOW + EndSec - NowSec,
 
-    show_diff({Tstart, Tstop}),
     {Tstart, Tstop}.
 
 show_diff({T0, T1}) ->
@@ -113,14 +105,6 @@ set_timer_plus24(Pid, T, Msg) ->
     erlang:start_timer(Tnew, Pid, {Msg, Tnew}, [{abs, true}]).
 
 
-hms_to_seconds({H,M,S}) ->
-    H * 3600 + M * 60 + S.
-seconds_to_hms(Sec) ->
-    H = Sec div 3600,
-    M = (Sec - H * 3600) div 60,
-    S = Sec - H * 3600 - M * 60,
-    {H,M,S}.
-    
 read_timer(Ref) when is_reference(Ref)->
     erlang:read_timer(Ref) div 1000;
 read_timer(none) ->
