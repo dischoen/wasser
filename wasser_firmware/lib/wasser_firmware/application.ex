@@ -5,7 +5,7 @@ defmodule WasserFirmware.Application do
 
   use Application
 
-  import WasserGui
+  #import WasserGui
   
   @impl true
   def start(_type, _args) do
@@ -16,7 +16,7 @@ defmodule WasserFirmware.Application do
     #Application.ensure_all_started :wasser_gui
     
     children =
-      Enum.map(channelmap(),
+      Enum.map([], ##channelmap(),
         fn {name, pin} ->
           %{id: name, start: {WasserFirmware.WasserSrv, :start_link, [%{name: name, pin:  pin}]}}
         end)

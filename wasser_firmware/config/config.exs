@@ -35,7 +35,7 @@ end
 ssid = System.get_env("WLAN_SSID")
 psk  = System.get_env("WLAN_PSK")
 if ssid == nil or psk == nil do
-  raise "WLAN ID not supplied!"
+  raise "WLAN ID not supplied! (set WLAN_SSID & WLAN_PSK)"
 end
 
 

@@ -9,9 +9,11 @@
 -module(timers).
 
 %% API
--export([t2/2,
+-export([jobdef_to_monotime/2,
          when_timer/2,
          start_timers/3,
+         clear_timers/2,
+         set_timer_plus24/3,
          read_timer/1,
          start_receiver/0,
          show_diff/1,
@@ -25,7 +27,7 @@
 -define(PRECISION, millisecond).
 -define(ONE_DAY, 1000*3600*24).
 
-t2({H, M, S}, {DurH, DurM, DurS}) ->
+jobdef_to_monotime({H, M, S}, {DurH, DurM, DurS}) ->
     NOW = erlang:monotonic_time(millisecond),
     {Hour, Min, Sec} = erlang:time(),
     TimerSec   = hms_to_milliseconds(H, M, S),
@@ -101,6 +103,11 @@ start_timers(Pid, {T0, T1}, {Msg0, Msg1}) ->
             {Ref1, Ref2}
     end.
 
+set_timer_plus24(Pid, T, Msg) ->
+    Tnew = T + ?ONE_DAY,
+    %% return Ref
+    erlang:start_timer(Tnew, Pid, {Msg, Tnew}, [{abs, true}]).
+
 
 hms_to_seconds({H,M,S}) ->
     H * 3600 + M * 60 + S.
@@ -114,3 +121,7 @@ read_timer(Ref) when is_reference(Ref)->
     erlang:read_timer(Ref) div 1000;
 read_timer(none) ->
     none.
+
+clear_timers(Tstart, Tstop) ->
+    erlang:cancel_timer(Tstart),
+    erlang:cancel_timer(Tstop).

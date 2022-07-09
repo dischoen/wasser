@@ -62,7 +62,8 @@ defmodule WasserFirmware.MixProject do
 
       {:nerves_time,   "~> 0.4.2"},
       {:nerves_time_zones, "~> 0.1.2"},
-      {:circuits_gpio, "~> 1.0"}
+      {:circuits_gpio, "~> 1.0"},
+      {:httpoison, "~> 1.8"}
     ]
   end
 
