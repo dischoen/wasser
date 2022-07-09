@@ -2,6 +2,9 @@
 %%% @author Dieter Schoen <dieter@schoen.or.at>
 %%% @copyright (C) 2022, Dieter Schoen
 %%% @doc
+%%% Timer functions for the wasser project.
+%%% 
+%%% Main functions are jobdef_to_monotime and start_timers
 %%%
 %%% @end
 %%% Created : 25 Jun 2022 by Dieter Schoen <dieter@schoen.or.at>
@@ -15,9 +18,9 @@
          clear_timers/2,
          set_timer_plus24/3,
          read_timer/1,
+
          start_receiver/0,
          show_diff/1,
-
          sa/0,
 
          hms_to_seconds/1,
@@ -57,6 +60,7 @@ when_timer({Tstart, _Tstop}, Tnow) when Tstart > Tnow ->
 when_timer(_, _) ->
     now.
 
+%% for testing
 start_receiver() ->
     spawn(fun R() -> 
                   receive 
