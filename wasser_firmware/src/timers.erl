@@ -35,13 +35,6 @@ jobdef_to_monotime({H, M, S}, {DurH, DurM, DurS}) ->
 
     {Tstart, Tstop}.
 
-show_diff({T0, T1}) ->
-    NOW = erlang:monotonic_time(millisecond),
-
-    io:format("NOW ~p~n", [NOW]),
-    io:format("T0  ~p ~p~n", [T0, T0 - NOW]),
-    io:format("T1  ~p ~p~n", [T1, T1 - NOW]).
-    
 hms_to_milliseconds(H, M, S) ->
     1000 * (H * 3600 + M * 60 + S).
     
@@ -51,33 +44,6 @@ when_timer({Tstart, _Tstop}, Tnow) when Tstart > Tnow ->
     future;
 when_timer(_, _) ->
     now.
-
-%% for testing
-start_receiver() ->
-    spawn(fun R() -> 
-                  receive 
-                      quit ->
-                          io:format("received QUIT~n", []),
-                          ok;
-                      {msg, Delta, Time} -> 
-                          io:format("received ~p delta: ~p ~n", 
-                                    [Delta, erlang:system_time(millisecond) - Time]),
-                          R();
-                      X -> 
-                          io:format("received ~p @ ~p ~n", [X, 
-                                                            erlang:system_time(millisecond)]),
-                          R()
-                  end
-          end). 
-
-sa() ->
-    P = start_receiver(),
-    lists:foreach(fun (X) ->
-                         erlang:send_after(X, P, {msg, X, erlang:system_time(millisecond)}), 
-                         timer:sleep(200)
-                  end,
-                  [1000,2000,3000,4000,3000,2000,1000]),
-    erlang:send_after(4500, P, quit).
 
 start_timers(Pid, {T0, T1}, {Msg0, Msg1}) ->
     Tnow = erlang:monotonic_time(millisecond),
